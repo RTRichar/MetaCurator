@@ -9,3 +9,11 @@ Perl 5.16.0 or compatible
 VSEARCH 2.8.1 or compatible  
 HMMER3 3.1b2 or compatible  
 MAFFT 7.270 or compatible  
+
+### Installation
+Download and unpack tarfile of current release
+'''
+wget https://github.com/RTRichar/CurateDB/releases/tag/v1.0beta.1/CurateDB-1.0beta.1.tar.gz
+tar xzf CurateDB-1.0beta.1.tar.gz
+'''
+After unpacking, export the CurateDB directory to $PATH if you're using a local machine, or add the directory path to the appropriate login configuration file if you are using a remote cluster
