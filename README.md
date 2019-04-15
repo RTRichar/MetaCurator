@@ -19,7 +19,7 @@ tar xzf v1.0beta.1.tar.gz
 After unpacking, export the CurateDB directory to $PATH if you're using a local machine, or add the directory path to the appropriate login configuration file if you are using a remote cluster
 
 ### Test CurateDB Installation
-An example dataset of 10,000 sequences annotated as rbcL in NCBI Nucleotide is provided along with a Taxonomizr formated taxonomy file and a set of 8 hand-picked rbcL sequences manually trimmed to be representative of a commonly used barcoding region. Running the software on this test set should take 1-2 hours on a typical single core machine with 4 GB of RAM.  
+An example dataset of 10,000 sequences annotated as *rbcL* in NCBI Nucleotide is provided along with a Taxonomizr formated taxonomy file and a set of 8 hand-picked *rbcL* sequences manually trimmed to be representative of a commonly used barcoding region. Running the software on this test set should take approximately one hour on a typical single core machine with 4 GB of RAM.  
 ```
 cd CurateDB-1.0beta.1/TestCurateDB
 CurateDB.py -r rbcL_Reps.fa -i rbcL_10K_sample.fa -it rbcL_10K_sample.tax -tf True -ct True -of Test_rbcL.fa -ot Test_rbcL.tax
