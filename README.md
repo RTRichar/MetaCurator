@@ -22,5 +22,5 @@ After unpacking, export the MetaCurator directory to $PATH if you're using a loc
 An example dataset of 10,000 sequences annotated as *rbcL* in NCBI Nucleotide is provided along with a Taxonomizr formated taxonomy file and a set of 8 hand-picked *rbcL* sequences manually trimmed to be representative of a commonly used barcoding region. Running the software on this test set should take approximately one hour on a typical single core machine with 4 GB of RAM.  
 ```
 cd MetaCurator-1.0beta.1/TestMetaCurator
-MetaCurator.py -r rbcL_Reps.fa -i rbcL_10K_sample.fa -it rbcL_10K_sample.tax -tf True -ct True -of Test_rbcL.fa -ot Test_rbcL.tax
+MetaCurator.py -r rbcL_Reps.fa -i rbcL_sample.fa -it rbcL_sample.tax -tf True -ct True -of Test.fa -ot Test.tax 2> log.txt
 ```
