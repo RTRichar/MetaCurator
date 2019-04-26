@@ -1,6 +1,6 @@
 # MetaCurator
 ### Software for curating reference sequence databases used in barcoding, metabarcoding and metagenomics
-MetaCurator uses HMMER (http://hmmer.org/), MAFFT (https://mafft.cbrc.jp/alignment/software/linux.html) and VSEARCH (https://github.com/torognes/vsearch) to search through sequences available from broad origions (such as NCBI Nucleotide, NCBI Genome and/or BOLD), identify and extract the precise barcode marker region of interest, discard irrelevent sequences and sequence regions, and dereplicate the resulting reference data in a taxonimcaly-supervised fashion.
+MetaCurator uses HMMER (http://hmmer.org/), MAFFT (https://mafft.cbrc.jp/alignment/software/linux.html) and VSEARCH (https://github.com/torognes/vsearch) to search through sequences available from broad origions (such as NCBI Nucleotide, NCBI Genome and/or BOLD), identify and extract the precise barcode marker region of interest, discard irrelevent sequences and sequence regions, and dereplicate the resulting reference data in a taxonomically-supervised fashion.
 ### Dependencies  
 MetaCurator is a command-line only toolkit which runs on typical Unix/Linux environments. It requires the following software to be installed and globally accessible. 
 
