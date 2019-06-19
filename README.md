@@ -24,3 +24,6 @@ An example dataset of 10,000 sequences annotated as *rbcL* in NCBI Nucleotide is
 cd MetaCurator-1.0beta.1/TestMetaCurator
 MetaCurator.py -r rbcL_Reps.fa -i rbcL_sample.fa -it rbcL_sample.tax -tf True -ct True -of Test.fa -ot Test.tax 2> log.txt
 ```
+
+### Citation and further information
+https://www.biorxiv.org/content/10.1101/672782v1
