@@ -18,10 +18,8 @@ optional.add_argument('-t', '--threads', required = False, default = 1, help = "
 optional.add_argument('--SaveTemp', default=False, type=lambda x: (str(x).lower() == 'true'), help = "\nOption for saving alignments and HMM files produced during extraction and dereplication (True or False)\n")
 # optional Iterazor-specific
 Ioptional.add_argument('-e', '--HmmEvalue', required = False, default = 0.05, help = "\nEvalue threshold for HMM search\n")
-
 optional.add_argument('-tf', '--TaxonomizrFormat', required = False, type=bool, default = False, help = "\nSpecify if tax lineages are in Taxonomizr format and must first be converted to Metaxa2-compatible tab-delimited format (True or False)\n")
 optional.add_argument('-ct', '--CleanTax', required = False, type=bool, default = False, help = "\nSpecify if tax lineages are to be cleaned of common NCBI artifacts and revised at unresolved midpoints (True or False)\n")
-
 Ioptional.add_argument('-is', '--IterationSeries', required = False, default = '20,10,5,5', help = "\nThe IterationSeries and CoverageSeries arguments dictate the number of iterative searches to run and the minimum HMM coverege required for each round of extracting. This argument consists of a comma-separated list specifying the number of searches to run during each round of extraction. The list can vary in length, changing the total number of extraction rounds conducted. However, if a search iteration fails to yield any new reference sequence amplicons, IterRazor will break out of that round of searching and move to the next. By default, the software conducts four rounds of extraction with 20, 10, 5 and 5 search iterations per round (i.e. '-is 20,10,5,5').\n")
 Ioptional.add_argument('-cs', '--CoverageSeries', required = False, default = '1.0,0.95,0.9,0.65', help = "\nThis argument consists of a comma-separated list specifying the minimum HMM coverage required per round for an extracted amplicon reference sequence to be added to the reference sequence fasta. The list can vary in length but must be equal in length to the IterationSeries list. By default, the software conducts four rounds of extraction with coverage limits of 1.0, 0.95, 0.9 and 0.65 for each respective search round (i.e. '-cs 1.0,0.95,0.9,0.65').\n")
 # optional DerepByTaxonomy-specific
@@ -57,8 +55,8 @@ with open(str(CTEMPDIR + '/HmmerLog.txt'),'w') as HmmLog:
 			str(args.threads), '-e', str(args.HmmEvalue), '-is', str(args.IterationSeries), '-cs', str(args.CoverageSeries)], stdout=HmmLog)
 	else:
 		subprocess.call(['IterRazor.py', '-r', str(args.ReferencesFile), '-i', str(args.InputFile), '-o', str(CTEMPDIR + '/IterOut.fa'), '-t', \
-			str(args.threads), '-e', str(args.HmmEvalue), '-is', str(args.IterationSeries), '-cs', str(args.CoverageSeries), '-st', 'True'], \
-			stdout=HmmLog)
+			str(args.threads), '-e', str(args.HmmEvalue), '-is', str(args.IterationSeries), '-cs', str(args.CoverageSeries), '--SaveTemp', \
+			'True'], stdout=HmmLog)
 # get consensus
 subprocess.call(['TaxFastaConsensus.py', '-it', str(CTEMPDIR + '/CleanInTax.tax'), '-if', str(CTEMPDIR + '/IterOut.fa'), '-ot', \
 	str(CTEMPDIR + '/ConTaxOne.tax'), '-of', str(CTEMPDIR + '/ConFastaOne.fa')])
@@ -69,9 +67,12 @@ if str(args.SaveTemp) == 'False':
 	str(CTEMPDIR + '/DerepOut.fa'), '-p', str(args.threads), '-mh', str(args.MaxHits), '-it', str(args.Iterations)]) # add threads and iterations flags
 else:
 	subprocess.call(['DerepByTaxonomy.py', '-i', str(CTEMPDIR + '/ConFastaOne.fa'), '-t', str(CTEMPDIR + '/ConTaxOne.tax'), '-o', \
-	str(CTEMPDIR + '/DerepOut.fa'), '-p', str(args.threads), '-mh', str(args.MaxHits), '-it', str(args.Iterations), '-st', 'True'])
+	str(CTEMPDIR + '/DerepOut.fa'), '-p', str(args.threads), '-mh', str(args.MaxHits), '-it', str(args.Iterations), '--SaveTemp', 'True'])
 # get consensus
 subprocess.call(['TaxFastaConsensus.py', '-it', str(CTEMPDIR + '/CleanInTax.tax'), '-if', str(CTEMPDIR + '/DerepOut.fa'), '-ot', str(args.OutTax), \
 	'-of', str(args.OutFasta)])
+# calc stats
+subprocess.call(['CalcStats.py','--Before',str(CTEMPDIR + '/CleanInTax.tax'),'--After',str(args.OutTax)])
+# remove temps 
 if bool(args.SaveTemp) == False:
 	subprocess.call(['rm', '-rf', str(CTEMPDIR)]) 

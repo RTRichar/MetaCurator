@@ -1,0 +1,97 @@
+
+### Thu Jul 18 21:59:12 2019: TAXONOMIZR formated lineages specified: Cleaning lineages and revising unresolved mid-points ###
+
+### Thu Jul 18 21:59:14 2019: Extracting amplicon region of interest from input reference sequences ###
+
+
+###### Thu Jul 18 21:59:15 2019 Starting round 1 ######
+### Thu Jul 18 21:59:15 2019 Running round 1 extraction: iteration 0 ###
+### 776 sequences extracted at 1.0 coverage ###
+
+### Thu Jul 18 21:59:50 2019 Running round 1 extraction: iteration 1 ###
+### 11 sequences extracted at 1.0 coverage ###
+
+### Thu Jul 18 22:00:10 2019 Running round 1 extraction: iteration 2 ###
+### 14 sequences extracted at 1.0 coverage ###
+
+### Thu Jul 18 22:00:29 2019 Running round 1 extraction: iteration 3 ###
+### 0 sequences extracted at 1.0 coverage ###
+
+
+
+###### Thu Jul 18 22:00:49 2019 Starting round 2 ######
+### Thu Jul 18 22:00:49 2019 Running round 2 extraction: iteration 0 ###
+### 757 sequences extracted at 0.95 coverage ###
+
+### Thu Jul 18 22:01:09 2019 Running round 2 extraction: iteration 1 ###
+### 0 sequences extracted at 0.95 coverage ###
+
+
+
+###### Thu Jul 18 22:01:19 2019 Starting round 3 ######
+### Thu Jul 18 22:01:19 2019 Running round 3 extraction: iteration 0 ###
+### 117 sequences extracted at 0.9 coverage ###
+
+### Thu Jul 18 22:01:29 2019 Running round 3 extraction: iteration 1 ###
+### 0 sequences extracted at 0.9 coverage ###
+
+
+
+###### Thu Jul 18 22:01:38 2019 Starting round 4 ######
+### Thu Jul 18 22:01:38 2019 Running round 4 extraction: iteration 0 ###
+### 87 sequences extracted at 0.65 coverage ###
+
+### Thu Jul 18 22:01:47 2019 Running round 4 extraction: iteration 1 ###
+### 0 sequences extracted at 0.65 coverage ###
+
+iteration_1_0	776
+iteration_1_1	11
+iteration_1_2	14
+iteration_1_3	0
+iteration_2_0	757
+iteration_2_1	0
+iteration_3_0	117
+iteration_3_1	0
+iteration_4_0	87
+iteration_4_1	0
+>>> Total Seqs Added: 1762
+
+
+### Thu Jul 18 22:01:55 2019: Dereplicating extracted reference sequences using DerepByTaxonomy ###
+
+
+### Thu Jul 18 22:01:55 2019 Starting round 0 ###
+
+vsearch v2.8.1_linux_x86_64, 251.7GB RAM, 28 cores
+https://github.com/torognes/vsearch
+
+Reading file Derep_tmp_Jul_18_22_01_55_2019/tmp_DeltaInput_-1 100%
+836190 nt in 1754 seqs, min 325, max 494, avg 477
+Masking 100%
+Counting k-mers 100%
+Creating k-mer index 100%
+Searching 100%
+Matching query sequences: 341 of 1754 (19.44%)
+
+### Thu Jul 18 22:02:02 2019 61 Sequences removed ###
+
+
+### Thu Jul 18 22:02:02 2019 Starting round 1 ###
+
+vsearch v2.8.1_linux_x86_64, 251.7GB RAM, 28 cores
+https://github.com/torognes/vsearch
+
+Reading file Derep_tmp_Jul_18_22_01_55_2019/tmp_DeltaInput_0 100%
+806935 nt in 1693 seqs, min 325, max 494, avg 477
+Masking 100%
+Counting k-mers 100%
+Creating k-mer index 100%
+Searching 100%
+Matching query sequences: 252 of 1693 (14.88%)
+
+### Thu Jul 18 22:02:08 2019 0 Sequences removed ###
+
+Iteration_0	61
+Iteration_1	0
+>>> Total Seqs Removed: 61
+
