@@ -22,6 +22,7 @@ DeltaInputOld = str(TEMPDIR + '/tmp_DeltaInput_-1')
 subprocess.call(['cp', args.InputFile, DeltaInputOld])
 # read fasta file into dictionary
 FastaDct = {}
+FastStatus = str('\n')
 with open(args.InputFile, 'r') as Fasta:
 	for line in Fasta:
 		if not line.strip():
@@ -31,8 +32,9 @@ with open(args.InputFile, 'r') as Fasta:
 				header = str(line.strip())[1:]
 				continue
 			else:
-				sys.stderr.write('\n# WARNING: DerepByTax: duplicate sequence header skipped - ' + str(line.strip())[1:])
+				FastStatus = str('\n# WARNING: DerepByTax: duplicate sequence headers skipped')
 		FastaDct[header] = line.strip()
+sys.stderr.write(FastStatus)
 # read tax file into dictionary
 TaxDct = {}
 with open(args.TaxFile, 'r') as TaxFile:

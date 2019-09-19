@@ -27,6 +27,24 @@ Doptional.add_argument('-mh', '--MaxHits', required=False, default=1000, help = 
 Doptional.add_argument('-di', '--Iterations', default='10', required=False, help = "\nNumber of iterative VSEARCH searches to run (default: 10). This is important in case the number of replicates for a given sequence greatly exceeds '--MaxHits'\n")
 args = parser.parse_args()
 
+### Test input fasta
+n = int(0)
+with open(str(args.InputFile), 'r') as Fasta:
+	for line in Fasta.readlines()[:3]:
+		if not line.strip():
+			sys.stderr.write('\n### Fasta contains empty line. Reformate fasta.\n')
+			sys.exit()
+		if not line.startswith('>'):
+			n += 1
+if n == int(2):
+	sys.stderr.write('\n### Check fasta, it appears sequences are not continuous. Remove next line instances.\n')
+	sys.exit()
+
+### test -is and -cs length
+if len(args.IterationSeries.split(',')) != len(args.CoverageSeries.split(',')):
+	sys.stderr.write('\n\n### -is and -cs lists are of unequal length. Please correct!\n\n')
+	sys.exit()
+
 ### create temp directory
 CTEMPDIR = str('curate_tmp_' + '_'.join(time.ctime(time.time()).replace(':','_').split()[1:]))
 subprocess.call(['mkdir', CTEMPDIR])
@@ -58,6 +76,7 @@ with open(str(CTEMPDIR + '/HmmerLog.txt'),'w') as HmmLog:
 			str(args.threads), '-e', str(args.HmmEvalue), '-is', str(args.IterationSeries), '-cs', str(args.CoverageSeries), '--SaveTemp', \
 			'True'], stdout=HmmLog)
 # get consensus
+sys.stderr.write('\n### ' + time.ctime(time.time()) + ': Getting taxonomy and fasta consensus entries from IterRazor output ###\n')
 subprocess.call(['TaxFastaConsensus.py', '-it', str(CTEMPDIR + '/CleanInTax.tax'), '-if', str(CTEMPDIR + '/IterOut.fa'), '-ot', \
 	str(CTEMPDIR + '/ConTaxOne.tax'), '-of', str(CTEMPDIR + '/ConFastaOne.fa')])
 ### run DerepByTaxonomy
@@ -69,10 +88,11 @@ else:
 	subprocess.call(['DerepByTaxonomy.py', '-i', str(CTEMPDIR + '/ConFastaOne.fa'), '-t', str(CTEMPDIR + '/ConTaxOne.tax'), '-o', \
 	str(CTEMPDIR + '/DerepOut.fa'), '-p', str(args.threads), '-mh', str(args.MaxHits), '-it', str(args.Iterations), '--SaveTemp', 'True'])
 # get consensus
+sys.stderr.write('\n### ' + time.ctime(time.time()) + ': Getting taxonomy and fasta consensus entries from DerepByTaxonomy output ###\n')
 subprocess.call(['TaxFastaConsensus.py', '-it', str(CTEMPDIR + '/CleanInTax.tax'), '-if', str(CTEMPDIR + '/DerepOut.fa'), '-ot', str(args.OutTax), \
 	'-of', str(args.OutFasta)])
 # calc stats
-subprocess.call(['CalcStats.py','--Before',str(CTEMPDIR + '/CleanInTax.tax'),'--After',str(args.OutTax)])
+subprocess.call(['CalcStats.py','--Before',str(CTEMPDIR + '/CleanInTax.tax'),'--After',str(args.OutTax),'--AfterFasta',str(args.OutFasta)])
 # remove temps 
 if bool(args.SaveTemp) == False:
 	subprocess.call(['rm', '-rf', str(CTEMPDIR)]) 

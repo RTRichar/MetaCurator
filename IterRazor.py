@@ -33,6 +33,7 @@ DeltaInput = str(TEMPDIR + '/tmp_DeltaInput')
 subprocess.call(['cp', args.InputFile, DeltaInput])
 # make dictionary of InputFile target sequences
 InputFasta = {}
+FastStatus = str('\n') # printed after fasta is parsed, tells user if fasta had duplicates
 with open(args.InputFile, 'r') as Fasta:
 	for line in Fasta:
 		if not line.strip():
@@ -42,8 +43,9 @@ with open(args.InputFile, 'r') as Fasta:
 				header = str(line.strip())[1:]
 				continue
 			else:
-				sys.stderr.write('\n# WARNING: IterRazor: duplicate sequence header skipped - ' + str(line.strip())[1:])
+				FastStatus = str('\n# WARNING: IterRazor: duplicate sequence headers skipped')
 		InputFasta[header] = line.strip()
+sys.stderr.write(FastStatus)
 # get list of extracted Sequence IDs (append each new addition so same seq isn't added twice)
 RefDbIds = []
 with open(args.ReferencesFile) as Refs:
@@ -94,8 +96,8 @@ for r in range(1,(len(args.IterationSeries.split(','))+1)):
 		nHmmOut = str(TEMPDIR + '/nHmmOut_' + str(r) + '_' + str(i))
 		subprocess.call(['hmmbuild', '--cpu', str(args.threads), Hmm, PstAlnOut])
 		subprocess.call(['hmmpress', Hmm])
-		subprocess.call(['nhmmscan', '--cpu', str(args.threads), '-E', str(args.HmmEvalue), '--tblout', nHmmTblOut, '-o', \
-			nHmmOut, Hmm, DeltaInput])
+		subprocess.call(['nhmmscan', '--cpu', str(args.threads), '-E', str(args.HmmEvalue), \
+			'--tblout', nHmmTblOut, '-o', nHmmOut, Hmm, DeltaInput])
 		SumDct[('iteration_' + str(r) + '_' + str(i))] = 0
 		with open(nHmmTblOut, 'r') as HmmResults: # identify and trim amplicon from hits
 			for line in HmmResults:
@@ -111,7 +113,7 @@ for r in range(1,(len(args.IterationSeries.split(','))+1)):
 									AppendFile.write(str('>' + Q) + '\n' + InputFasta[Q][Qst:Qend] + '\n')
 								RefDbIds.append(Q) # append Q to RefDbIds
 								SumDct[('iteration_' + str(r) + '_' + str(i))] += 1
-							else: ##### LIKELY BUG: NEED TO REVERSE COMPLIMENT BEFORE ADDING TO HMM !!!!!!!!!
+							else: 
 								with open(args.OutPutFile, 'a') as AppendFile:
 									revcomp = reverse_complement(str(InputFasta[Q][Qend:Qst])) # reverse complement
 									AppendFile.write(str('>' + Q) + '\n' + revcomp + '\n')
