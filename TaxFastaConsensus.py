@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
+import sys
 
 parser = argparse.ArgumentParser("TaxFastaConsensus identifies and removes sequences which don't have taxonomic lineages and lineages which don't have corresponding sequences")
 parser.add_argument('-it', '--InTax', required = True, help = "\nInput taxnomic lineages (tab-delimited)\n")
