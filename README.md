@@ -26,4 +26,4 @@ MetaCurator.py -r rbcL_Reps.fa -i rbcL_sample.fa -it rbcL_sample.tax -tf True -c
 ```
 
 ### Citation and further information
-https://www.biorxiv.org/content/10.1101/672782v1
+https://doi.org/10.1111/2041-210X.13314
