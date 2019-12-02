@@ -26,4 +26,6 @@ MetaCurator.py -r rbcL_Reps.fa -i rbcL_sample.fa -it rbcL_sample.tax -tf True -c
 ```
 
 ### Citation and further information
-https://doi.org/10.1111/2041-210X.13314
+Richardson, RT, DB Sponsler, H McMinn-Sauder & RM Johnson. (2019). MetaCurator: A hidden Markov model-based toolkit for extracting and curating sequences from taxonomically-informative genetic markers. *Methods in Ecology and Evolution*. https://doi.org/10.1111/2041-210X.13314
+
+**Contact: rtr87@yorku.ca**
